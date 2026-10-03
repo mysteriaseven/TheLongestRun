@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Longest Run — Daily Street Edition</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== TOP BAR: TICKETS & TOKENS ===== -->
+<header class="app-header">
+  <div class="header-pill">🎟️ <span id="user-tickets">3</span>/3 Tickets</div>
+  <div class="header-pill">💎 <span id="user-tokens">0</span> Tokens</div>
+  <button class="header-btn" id="btn-open-binder">📖 Album</button>
+</header>
+
+<!-- ===== MENU ===== -->
+<div class="screen active" id="screen-menu">
+  <div class="menu-hero">
+    <div class="logo">🏀</div>
+    <h1>THE LONGEST RUN</h1>
+    <div class="sub">Draft historical era cards. Build your hybrid. Rule the streets daily.</div>
+    <div class="menu-stats-row">
+      <div class="ms-box"><div class="ms-val" id="menu-best">0</div><div class="ms-lbl">Best Streak</div></div>
+      <div class="ms-box"><div class="ms-val" id="menu-total-wins">0</div><div class="ms-lbl">Career Wins</div></div>
+    </div>
+  </div>
+  <button class="btn" id="btn-start">Start Run (Uses 1 🎟️)</button>
+  <button class="btn secondary" id="btn-daily-challenge">📅 Daily Street Challenge</button>
+</div>
+
+<!-- ===== CARD BINDER (ALBUM) MODAL ===== -->
+<div class="modal hidden" id="modal-binder">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>📖 Permanent Era Collection</h2>
+      <button class="btn-close" id="btn-close-binder">✕</button>
+    </div>
+    <div class="sub">Win street matches to collect permanent vintage cards into your binder!</div>
+    <div class="binder-grid" id="binder-cards-grid"></div>
+  </div>
+</div>
+
+<!-- ===== DRAFT ===== -->
+<div class="screen" id="screen-draft">
+  <h2 id="draft-slot-title">Choose your Guard</h2>
+  <div class="sub" id="draft-slot-sub">Select up to 3 era cards to blend their historical DNA</div>
+  <div class="budget-bar"><div class="budget-fill" id="budget-fill" style="width:0%"></div></div>
+  <div id="budget-label">Build Budget: 0 / 10</div>
+  <div class="donor-cards" id="draft-cards"></div>
+  <div id="draft-preview"></div>
+  <button class="btn" id="btn-confirm-slot" disabled>Confirm Slot</button>
+</div>
+
+<!-- ===== TEAM READY ===== -->
+<div class="screen" id="screen-teamready">
+  <h2>Your Hybrid Trio</h2>
+  <div class="sub">Here are your blended players. Take them to the asphalt.</div>
+  <div id="team-summary" class="team-summary-grid"></div>
+  <button class="btn" id="btn-begin-run">Begin Run ⚡</button>
+</div>
+
+<!-- ===== VERSUS / SHOWCASE ===== -->
+<div class="screen" id="screen-versus">
+  <div class="boss-banner hidden" id="vs-boss-banner">🔥 BOSS RIVALS DETECTED 🔥</div>
+  <h2 id="vs-title">Upcoming Match</h2>
+  <div class="sub" id="vs-sub">Can your squad handle this historical lineup?</div>
+  
+  <div class="opp-reveal-card">
+    <div class="opp-badge-row">
+      <span class="opp-tag" id="opp-type-tag">Street Rivals</span>
+      <span class="opp-ovr-tag" id="opp-ovr-tag">OVR --</span>
+    </div>
+    <div class="opp-slots" id="opp-slots-grid"></div>
+  </div>
+
+  <button class="btn" id="btn-start-match-direct" disabled>Take The Court</button>
+</div>
+
+<!-- ===== MATCH ===== -->
+<div class="screen" id="screen-match">
+  <div class="boss-banner hidden" id="match-boss-banner">🔥 BOSS MATCH</div>
+  <div id="match-oppname"></div>
+  <div class="match-time-bar"><div class="match-time-fill" id="match-time-fill"></div></div>
+  <div class="scoreboard">
+    <div class="sb-box"><div class="sb-label">YOU</div><div class="sb-score" id="score-you">0</div></div>
+    <div class="sb-vs">VS</div>
+    <div class="sb-box"><div class="sb-label">OPP</div><div class="sb-score" id="score-opp">0</div></div>
+  </div>
+  <div class="feed" id="match-feed"></div>
+
+  <div id="match-win-banner" class="match-win-banner hidden">
+    <h3>🎉 MATCH WON!</h3>
+    <p>Your team controlled the court.</p>
+    <button class="btn" id="btn-claim-reward">Absorb DNA Reward 🎁</button>
+  </div>
+</div>
+
+<!-- ===== REWARD ===== -->
+<div class="screen" id="screen-reward">
+  <h2>🎁 DNA Infusion (Streak <span id="reward-streak"></span>)</h2>
+  <div class="sub">Diminishing returns active: Patch weaker dimensions or unlock 99 HOF Badges!</div>
+  <div class="reward-cards" id="reward-cards"></div>
+</div>
+
+<!-- ===== GAME OVER ===== -->
+<div class="screen" id="screen-gameover">
+  <div class="go-hero">
+    <div class="sub">RUN OVER</div>
+    <div class="go-streak-num" id="go-streak">0</div>
+    <div class="sub">wins this run</div>
+    <div id="go-newbest" class="hidden">🏆 New Personal Best!</div>
+  </div>
+  
+  <div class="go-teams-comparison">
+    <h3>Your Squad</h3>
+    <div id="go-team" class="go-squad-grid"></div>
+    <h3 style="margin-top: 16px;">Eliminated By</h3>
+    <div id="go-opp-team" class="go-squad-grid"></div>
+  </div>
+
+  <button class="btn" id="btn-share-run">📤 Share Run</button>
+  <button class="btn secondary" id="btn-play-again">Play Again</button>
+</div>
+
+<script src="engine.js"></script>
+<script src="rewards.js"></script>
+<script src="donors.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
